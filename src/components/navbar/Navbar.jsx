@@ -1,5 +1,7 @@
 // import React from 'react';
 
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
   return (
     <div className="mb-16">
@@ -15,6 +17,11 @@ const Navbar = () => {
             Co<span className="text-white">ff</span>ee S
             <span className="text-white">to</span>re
           </h1>
+        </div>
+        <div className="absolute buttom-0 z-30 flex justify-center items-end gap-3 text-white w-full h-full ">
+          <Link to="/">Home</Link>
+          <Link to="/addCoffee">Add Coffee</Link>
+          <Link to="/allCoffee">All Coffee</Link>
         </div>
       </div>
     </div>
