@@ -1,7 +1,13 @@
 // import React from "react";
 
+import AllCoffee from "../allCoffee/AllCoffee";
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <AllCoffee />
+    </div>
+  );
 };
 
 export default Home;

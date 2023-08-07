@@ -3,20 +3,22 @@ import { AiFillEye } from "react-icons/ai";
 import { MdEditSquare } from "react-icons/md";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
-const CoffeeCard = ({ coffee }) => {
+const CoffeeCard = ({ coffee, allCoffee, setAllCoffee }) => {
   const {
     _id,
     coffeeName,
-    availableQuantity,
+    // availableQuantity,
     supplierName,
-    taste,
-    category,
-    details,
+    // taste,
+    // category,
+    // details,
     photoUrl,
     price,
   } = coffee;
 
+  // delete a coffee
   const handleOnDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -34,11 +36,13 @@ const CoffeeCard = ({ coffee }) => {
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
-            if (data.deleteCount > 0) {
+            if (data.deletedCount > 0) {
               Swal.fire("Deleted!", "Coffee has been deleted.", "success");
+              const reamining = allCoffee.filter((cof) => cof._id != id);
+              setAllCoffee(reamining);
             }
-          });
-        //   .catch((error) => console.log(error));
+          })
+          .catch((error) => console.log(error));
       }
     });
   };
@@ -63,19 +67,25 @@ const CoffeeCard = ({ coffee }) => {
       <div className="flex flex-col justify-center gap-6 w-full h-full items-center basis-[10%]">
         <button
           type="button"
+          title="Show More..."
           className="bg-orange-900 hover:bg-orange-500 duration-500 rounded-lg p-2 hover:scale-105"
         >
           <AiFillEye className="text-white w-6 h-6" />
         </button>
-        <button
-          type="button"
-          className="bg-orange-900 hover:bg-green-500 duration-500 rounded-lg p-2 hover:scale-105"
-        >
-          <MdEditSquare className="text-white w-6 h-6" />
-        </button>
+        <Link to={`/updateCoffee/${_id}`}>
+          {" "}
+          <button
+            type="button"
+            title="Edit This Coffee"
+            className="bg-orange-900 hover:bg-green-500 duration-500 rounded-lg p-2 hover:scale-105"
+          >
+            <MdEditSquare className="text-white w-6 h-6" />
+          </button>
+        </Link>
         <button
           onClick={() => handleOnDelete(_id)}
           type="button"
+          title="Delete This Coffee"
           className="bg-orange-900 hover:bg-red-500 duration-500 rounded-lg p-2 hover:scale-105"
         >
           <BsFillTrash3Fill className="text-white w-6 h-6" />
